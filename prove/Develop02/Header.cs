@@ -12,13 +12,25 @@ class Header{
         Boolean check = File.Exists("prompt.txt");
         Console.WriteLine(check);
         if (check == true){
-            List<string> num = new List<string>();
+            List<char> num = new List<char>();
+            List<string> txt = new List<string>();
             foreach (var line in File.ReadAllLines("prompt.txt")){
                 if (line.Contains("Entry Number")==true){
-                    num.Add(line);
+                    txt.Add(line);
                 }
             }
-            Console.WriteLine(num[0]);
+            for(int x=0; x<txt.Count(); x++){
+                string word = txt[x];
+                for(int y=0;y<word.Length;y++){
+                    char part = word[y];
+                    num.Add(part);
+                }
+
+            }
+            for(int z=0;z<num.Count();z++){
+                _ = int.TryParse(num[z].ToString(), out entrynum);
+            }
+            entrynum+=1;
         }
     }
 }
