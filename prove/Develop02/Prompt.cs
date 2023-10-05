@@ -24,7 +24,7 @@ class Prompt{
                 Console.WriteLine("That was invalid. Enter a valid option.");
             }
         }
-        return answer;
+        return answer-1;
     }
 
     public void addprompt(){
@@ -37,7 +37,7 @@ class Prompt{
     public void removeprompt(){
         int index;
         displayprompt();
-        Console.WriteLine("Please enter the number associated with the prompt that you want to use: ");
+        Console.WriteLine("Please enter the number associated with the prompt that you want to remove: ");
         Boolean done = false;
         while (done==false){
             try{
@@ -50,7 +50,7 @@ class Prompt{
             }
             }catch{
                 displayprompt();
-                Console.WriteLine("\nPlease enter a valid number");
+                Console.WriteLine("\nPlease enter a valid number:");
             }
         }
 

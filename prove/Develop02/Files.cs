@@ -1,4 +1,4 @@
-class File{
+class Files{
     public void writefile(string text){
         string path = "propmt.txt";
         StreamWriter writer = new StreamWriter(path, true);
