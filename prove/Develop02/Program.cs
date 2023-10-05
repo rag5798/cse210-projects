@@ -26,7 +26,7 @@ class Program
                 f.writefile($"Entry Number: {h.entrynum}");
                 f.writefile($"Name: {h.name}");
                 f.writefile($"Date: {h.date}");
-                f.writefile(entry);
+                f.writefile(entry + "\n");
                 Console.WriteLine("You entered:");
                 f.readfile();
                 h.entrynum+=1;
