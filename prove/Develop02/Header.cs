@@ -10,7 +10,6 @@ class Header{
         name = Console.ReadLine();
         date = DateTime.Now.ToShortDateString();
         Boolean check = File.Exists("prompt.txt");
-        Console.WriteLine(check);
         if (check == true){
             List<char> num = new List<char>();
             List<string> txt = new List<string>();
