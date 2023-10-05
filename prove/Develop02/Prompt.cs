@@ -12,8 +12,19 @@ class Prompt{
     public void displayprompt(){
         Console.WriteLine($"The current prompts are:");
         for (int x = 0; x<prompts.Count();x++){
-            Console.WriteLine($"{x+1}.) {prompts[x]}");
+            Console.WriteLine($"{x+1}.) {prompts[x]}\n");
         }
+    }
+
+    public int displaypromptchoice(){
+        Console.WriteLine("Please selcet the prompt you would like to respond too");
+        int answer=-1;
+        while(answer-1>prompts.Count || answer-1<0){
+            while(!int.TryParse(Console.ReadLine(), out answer)){
+                Console.WriteLine("That was invalid. Enter a valid option.");
+            }
+        }
+        return answer;
     }
 
     public void addprompt(){
@@ -43,5 +54,12 @@ class Prompt{
             }
         }
 
+    }
+
+    public string entertext(int promptnum){
+        Console.WriteLine(prompts[promptnum]);
+        Console.WriteLine("Please enter your response:");
+        string response=Console.ReadLine();
+        return response;
     }
 }

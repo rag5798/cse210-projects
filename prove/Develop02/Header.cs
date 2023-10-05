@@ -1,6 +1,6 @@
 class Header{
     public string name;
-    public int entrynum;
+    public int entrynum=1;
     public string date;
 
     public void getheader(){
