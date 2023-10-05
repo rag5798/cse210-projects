@@ -2,11 +2,9 @@ using System;
 using System.Formats.Asn1;
 using System.IO;
 
-class Program
-{
+class Program{
     
-    static void Main(string[] args)
-    {
+    static void Main(string[] args){
         Boolean done = false;
         while(done==false){
             Prompt p = new Prompt();
