@@ -2,7 +2,7 @@ using Microsoft.VisualBasic;
 
 class Header{
     public string name;
-    public int entrynum;
+    public int entrynum=1;
     public string date;
 
     public void getheader(){
@@ -19,8 +19,6 @@ class Header{
                 }
             }
             Console.WriteLine(num[0]);
-        }else{
-            entrynum = 1;
         }
     }
 }
