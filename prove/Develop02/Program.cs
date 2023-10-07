@@ -17,16 +17,16 @@ class Program{
                 Console.WriteLine("That was invalid. Enter a valid option.");
             }
             if (answer==1){
-                h.getheader();
-                p.displayprompt();
-                int answ = p.displaypromptchoice();
-                string entry = p.entertext(answ);
-                f.writefile($"Entry Number: {h.entrynum}");
-                f.writefile($"Name: {h.name}");
-                f.writefile($"Date: {h.date}");
-                f.writefile(entry + "\n");
+                h.GetHeader();
+                p.DisplayPrompt();
+                int answ = p.DisplayPromptChoice();
+                string entry = p.EnterText(answ);
+                f.WriteFile($"Entry Number: {h.entrynum}");
+                f.WriteFile($"Name: {h.name}");
+                f.WriteFile($"Date: {h.date}");
+                f.WriteFile(entry + "\n");
                 Console.WriteLine("You entered:");
-                f.readfile();
+                f.ReadFile();
                 h.entrynum+=1;
                 string cont="0";
                 while(cont!="y" && cont!="n"){
@@ -39,7 +39,7 @@ class Program{
                     done=true;
                 }
             }else if(answer==2){
-                p.addprompt();
+                p.AddPrompt();
                 string cont="0";
                 while(cont!="y" && cont!="n"){
                     Console.WriteLine("\nWould you like to continue (y/n)");
@@ -51,7 +51,7 @@ class Program{
                     done=true;
                 }
             }else if(answer==3){
-                p.removeprompt();
+                p.RemovePrompt();
                 string cont="0";
                 while(cont!="y" && cont!="n"){
                     Console.WriteLine("\nWould you like to continue (y/n)");

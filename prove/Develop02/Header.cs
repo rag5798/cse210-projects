@@ -5,7 +5,7 @@ class Header{
     public int entrynum=1;
     public string date;
 
-    public void getheader(){
+    public void GetHeader(){
         Console.WriteLine("What is your name: ");
         name = Console.ReadLine();
         date = DateTime.Now.ToShortDateString();
