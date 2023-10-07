@@ -24,6 +24,7 @@ class Program{
                 f.WriteFile($"Entry Number: {h.entrynum}");
                 f.WriteFile($"Name: {h.name}");
                 f.WriteFile($"Date: {h.date}");
+                f.WriteFile($"{answ+1}.){p.prompts[answ]}");
                 f.WriteFile(entry + "\n");
                 Console.WriteLine("You entered:");
                 f.ReadFile();
