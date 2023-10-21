@@ -12,6 +12,7 @@ class Program
         bool cont = true;
         string text = script.displayscripture(index);
         string header = refer.displayheader(index);
+        w.setindexchecker(text);
         while(cont==true){
             Console.WriteLine($"{header} {text}");
             Console.WriteLine("Press enter to continue or enter 'quit' to finish:");
@@ -19,11 +20,21 @@ class Program
             if (answ == "quit"){
                 cont=false;
             }else{
-                //int times = rand.Next(1, 4);
-                //for(int x=0; x<times; x++){
-                text = w.removeword(text);
-                Console.Clear();
-                //}
+                int times = rand.Next(1, 4);
+                if(w.almostEmpty()==0){
+                    cont = false;
+                }else if(w.almostEmpty()==1){
+                    times = 1;
+                }else if(w.almostEmpty()<4){
+                    times = rand.Next(1, w.almostEmpty());
+                }
+                times = rand.Next(1, 4);
+                for(int x=0; x<times; x++){
+                    text = w.removeword(text);
+                    Console.Clear();
+                }
+                
+                
                 /*string newstring = text.Replace(" ", "");
                 bool containsAllUnderscores = newstring.All(c => c == '_');
                 if (containsAllUnderscores==true){
