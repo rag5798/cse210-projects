@@ -6,7 +6,29 @@ class Reference{
         "Moses 1:39"
     };
 
+    private List<string> test = new List<string>();
+
     public string displayheader(int index){
         return references[index];
+    }
+
+    public string Getheaderfromfile(int index){
+        
+        string path = "scripturetext\\csv\\lds-scriptures.csv";
+        StreamReader reader = new StreamReader(path);
+        string line;
+        while ((line = reader.ReadLine()) != null)
+        {
+            foreach(var a in line.Split("$")){
+                test.Add(a);
+            }
+        }
+        reader.Close();
+        
+        for(int x =0; x<test.Count();x++){
+            test.RemoveAt(x);
+        }
+
+        return test[index];
     }
 }

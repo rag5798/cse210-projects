@@ -18,12 +18,14 @@ class Word{
             return "An error has ocurred";
         }
         word = splitwords[splitindex];
+
         blankword = "";
         for(int x=0; x<word.Length;x++){
             blankword += "_";
         }
 
         splitwords[splitindex] = blankword;
+        
         string newtext = "";
         for(int x=0;x<splitwords.Length;x++){
             newtext += splitwords[x];

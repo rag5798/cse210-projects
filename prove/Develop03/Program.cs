@@ -5,13 +5,17 @@ class Program
     static void Main(string[] args)
     {
         Random rand = new Random();
+        int index = rand.Next(41955);
         Scripture script = new Scripture();
         Reference refer = new Reference();
         Word w = new Word();
-        int index = script.randomint();
         bool cont = true;
-        string text = script.displayscripture(index);
-        string header = refer.displayheader(index);
+        string text = script.Getscripturefromfile(index);
+        text = text.Remove(text.Length - 1);
+        text = text.Remove(text.Length - 1);
+        text = text.Substring(1);
+        string header = refer.Getheaderfromfile(index);
+        header = header.Substring(1);
         w.setindexchecker(text);
         while(cont==true){
             Console.WriteLine($"{header} {text}");

@@ -8,15 +8,31 @@ class Scripture{
         "For behold, this is my work and my glory—to bring to pass the immortality and eternal life of man."
     };
 
+    private List<string> test = new List<string>();
+
     public string displayscripture(int index){
         return scripturetext[index];
     }
 
-    public int randomint(){
-        Random rand = new Random();
-        int index = rand.Next(scripturetext.Count());
-        return index;
-    }
 
+    public string Getscripturefromfile(int index){
+        
+        string path = "scripturetext\\csv\\lds-scriptures.csv";
+        StreamReader reader = new StreamReader(path);
+        string line;
+        while ((line = reader.ReadLine()) != null)
+        {
+            foreach(var a in line.Split("$")){
+                test.Add(a);
+            }
+        }
+        reader.Close();
+        
+        for(int x =1; x<test.Count();x++){
+            test.RemoveAt(x);
+        }
+
+        return test[index];
+    }
 
 }
