@@ -23,12 +23,12 @@ class Scripture{
         text2 = b;
     }
 
-    public string displayscripture(int index){
+    public string DisplayScripture(int index){
         return test[index];
     }
-    public string Getscripturefromfile(int index){
+    public string GetScriptureFromFile(int index){
         
-        string path = "test\\csv\\lds-scriptures.csv";
+        string path = "scripturetext\\csv\\lds-scriptures.csv";
         StreamReader reader = new StreamReader(path);
         string line;
         while ((line = reader.ReadLine()) != null)

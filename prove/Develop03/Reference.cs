@@ -8,11 +8,11 @@ class Reference{
 
     private List<string> test = new List<string>();
 
-    public string displayheader(int index){
+    public string DisplayHeader(int index){
         return references[index];
     }
 
-    public string Getheaderfromfile(int index){
+    public string GetHeaderFromFile(int index){
         
         string path = "scripturetext\\csv\\lds-scriptures.csv";
         StreamReader reader = new StreamReader(path);

@@ -5,7 +5,7 @@ class Word{
     private string blankword = "";
     private List<string> indexchecker;
 
-    public string removeword(string text){
+    public string RemoveWord(string text){
         if (indexchecker.Count() == 0){
             return "quit";
         }
@@ -101,7 +101,7 @@ class Word{
         return newtext;*/
     } 
 
-    public void setindexchecker(string text){
+    public void SetIndexChecker(string text){
         string[] splitwords = text.Split(' ');
         indexchecker = new List<string>();
         for(int x=0; x<splitwords.Length; x++){
@@ -109,7 +109,7 @@ class Word{
         }
     }
 
-    public int almostEmpty(){
+    public int AlmostEmpty(){
         return indexchecker.Count();
     }
 }
