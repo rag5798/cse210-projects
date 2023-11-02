@@ -46,9 +46,9 @@ class Activity{
     }
 
     public void EndMessage(int index){
-        Console.WriteLine($"Well Done!\n\n");
+        Console.WriteLine($"Well Done!\n");
         LoadingScreen();
-        Console.WriteLine($"You have completed {duration} seconds of {title[index]}.");
+        Console.WriteLine($"You have completed {duration} seconds of {title[index]}.\n");
     }
 
     public void LoadingScreen(){

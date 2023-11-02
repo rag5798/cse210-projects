@@ -24,6 +24,8 @@ class Breathing  : Activity{
     }
 
     public void RunBreath(){
+        DateTime start = DateTime.Now;
+        DateTime end = start.AddSeconds(GetDuration());
         int timer = GetDuration();
         int divisible = timer % 8;
         while (divisible != 0){
@@ -31,7 +33,21 @@ class Breathing  : Activity{
             divisible = timer%8;
         }
         Prepare();
+        while(DateTime.Now < end){
+            BreathIn();
+            BreathOut();
+        }
+
+        EndMessage(0);
+
+        /*int timer = GetDuration();
+        int divisible = timer % 8;
+        while (divisible != 0){
+            timer += 1;
+            divisible = timer%8;
+        }
+        Prepare();
         BreathIn();
-        BreathOut();
+        BreathOut();*/
     }
 }

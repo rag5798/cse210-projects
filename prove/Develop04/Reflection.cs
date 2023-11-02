@@ -1,4 +1,6 @@
 
+using System.ComponentModel.DataAnnotations;
+
 class Reflection : Activity{
     List<string> prompts = new List<string>{
         "Think of a time when you stood up for someone else.",
@@ -21,5 +23,43 @@ class Reflection : Activity{
 
     List<string> answers = new List<string>();
 
-    
+    List<string> usedprompts = new List<string>();
+
+    public string DisplayPrompt(){
+        Random rand = new Random();
+        int index = rand.Next(0, 4);
+        usedprompts.Add(prompts[index]);
+        return prompts[index];
+    }
+
+    public string DisplayReflectPropmt(){
+        Random rand = new Random();
+        int index = rand.Next(0, 9);
+        return reflectionprompt[index];
+    }
+
+    public string DisplayAnswers(int index){
+        return answers[index];
+    }
+
+    public void RunReflection(){
+        Prepare();
+        DateTime start = DateTime.Now;
+        DateTime end = start.AddSeconds(GetDuration());
+
+        while(DateTime.Now < end){
+            Console.WriteLine(DisplayPrompt());
+            Console.WriteLine(DisplayReflectPropmt());
+            string answer = Console.ReadLine();
+            answers.Add(answer);
+        }
+        EndMessage(1);
+        Console.WriteLine("Your Responses were: \n");
+        Thread.Sleep(1000);
+        for (int x = 0; x < answers.Count(); x++){
+            Console.WriteLine(usedprompts[x]);
+            Console.WriteLine(answers[x] + "\n");
+        }
+        
+    }
 }
