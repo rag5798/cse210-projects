@@ -1,6 +1,3 @@
-using System.Net.Mime;
-using System;
-using System.Runtime.InteropServices.Marshalling;
 
 class Program
 {
@@ -9,23 +6,22 @@ class Program
         Breathing b = new Breathing();
         Reflection r = new Reflection();
         Listing l = new Listing();
-        Listening listen = new Listening();
         bool cont = true;
         while (cont != false){
-            Console.WriteLine("Menu Options:\n1.) Start Breathing Activity\n2.) Start Reflection Activity\n3.) Start Listing Activity\n4.) Listening Activity\n5.) Quit");
+            Console.WriteLine("Menu Options:\n1.) Start Breathing Activity\n2.) Start Reflection Activity\n3.) Start Listing Activity\n4.) Quit");
             string answer = Console.ReadLine();
             int choice;
             bool ans = int.TryParse(answer, out choice);
             while (ans != true){
                 Console.WriteLine("\n\n***Please Enter an Integer 1, 2, or 3***\n\n");
-                Console.WriteLine("Menu Options:\n1.) Start Breathing Activity\n2.) Start Reflection Activity\n3.) Start Listing Activity\n4.) Listening Activity\n5.) Quit");
+                Console.WriteLine("Menu Options:\n1.) Start Breathing Activity\n2.) Start Reflection Activity\n3.) Start Listing Activity\n4.) Quit");
                 answer = Console.ReadLine();
                 ans = int.TryParse(answer, out choice);
             }
 
             if (choice < 1 || choice > 4){
                 Console.WriteLine("\n\n***Please Enter an Integer 1, 2, or 3***\n\n");
-                Console.WriteLine("Menu Options:\n1.) Start Breathing Activity\n2.) Start Reflection Activity\n3.) Start Listing Activity\n4.) Listening Activity\n5.) Quit");
+                Console.WriteLine("Menu Options:\n1.) Start Breathing Activity\n2.) Start Reflection Activity\n3.) Start Listing Activity\n4.) Quit");
                 answer = Console.ReadLine();
                 ans = int.TryParse(answer, out choice);
             }
@@ -58,7 +54,7 @@ class Program
                 //Listing Activity
                 l.RunListing();
             }else if(choice == 4){
-                listen.RunListening();
+                Environment.Exit(1);
             }else{
                 Console.WriteLine("An error has occured");
                 continue;
