@@ -20,8 +20,6 @@ class Activity{
 
     private int duration = 10;
 
-    private string endmessage;
-
     public void Prepare(){
         Console.WriteLine("Get Ready...");
         LoadingScreen();
