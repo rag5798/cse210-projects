@@ -1,6 +1,4 @@
 
-using System.ComponentModel.DataAnnotations;
-
 class Reflection : Activity{
     List<string> prompts = new List<string>{
         "Think of a time when you stood up for someone else.",
@@ -62,4 +60,5 @@ class Reflection : Activity{
         }
         
     }
+
 }
