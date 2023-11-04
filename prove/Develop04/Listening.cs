@@ -1,16 +1,16 @@
 using System.Diagnostics;
+using System.IO;
+
 class Listening : Activity{
      
      public void RunListen(){
-        ProcessStartInfo info = new ProcessStartInfo{
-            UseShellExecute = true,
-            FileName = "C:\\Program Files (x86)\\Windows Media Player\\wmplayer.exe",
-            WindowStyle = ProcessWindowStyle.Minimized,
-            Arguments = "C:\\cse210\\projects\\cse210-projects\\prove\\Develop04\\jazz.mp3",
-            
-        };
+        string fileName = "jazz.mp3";
+        string filePath = Path.GetFullPath(fileName).ToString();
         Process p = new Process();
-        p.StartInfo = info;
+        p.StartInfo.FileName = "C:\\Program Files (x86)\\Windows Media Player\\wmplayer.exe";
+        p.StartInfo.Arguments = filePath;
+        p.StartInfo.UseShellExecute = true;
+        p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
         Console.WriteLine(StartMessage(3));
         SetDuration();
         p.Start();
@@ -29,6 +29,7 @@ class Listening : Activity{
             }
         }
         p.Kill();
+        Console.WriteLine("\n");
         EndMessage(3);
     }
 }
