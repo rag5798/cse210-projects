@@ -4,6 +4,12 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Develop05 World!");
+        SimpleGoal g = new SimpleGoal();
+        Menu m = new Menu();
+        User u = new User();
+        //m.CreateGoal();
+        //m.CreateUser();
+        //m.MakeGoalList(m.GetGoals());
+        
     }
 }
