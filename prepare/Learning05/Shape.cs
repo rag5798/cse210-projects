@@ -12,4 +12,8 @@ public abstract class Shape{
     public void SetColor(string nameofcolor){
         color = nameofcolor;
     }
+
+    public void SetArea(double num){
+        Area = num;
+    }
 }

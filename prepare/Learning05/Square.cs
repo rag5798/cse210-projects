@@ -1,4 +1,3 @@
-using System.Drawing;
 
 class Square : Shape
 {
@@ -11,6 +10,7 @@ class Square : Shape
 
     public override double GetArea()
     {
-        throw new NotImplementedException();
+        SetArea(side * side);
+        return side * side;
     }
 }
