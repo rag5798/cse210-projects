@@ -278,7 +278,6 @@ class Menu{
         if (g.GetTypeOfGoal() == 1){
             string fileName = "goals.txt";
             string[] lines = File.ReadAllLines(fileName);
-            int line;
             for (int i = 0; i < lines.Length; i++){
                 if (lines[i].Contains(g.GetTitle())){
                     //Console.WriteLine("String found on line {0}: {1}", i + 1, lines[i]);
@@ -425,7 +424,6 @@ class Menu{
     public void OverWriteUser(User u){
         string fileName = "users.txt";
         string[] lines = File.ReadAllLines(fileName);
-        int line;
         for (int i = 0; i < lines.Length; i++){
             if (lines[i].Contains(u.GetUsername())){
                 //Console.WriteLine("String found on line {0}: {1}", i + 1, lines[i]);
