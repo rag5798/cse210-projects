@@ -5,6 +5,8 @@ class User{
     private int pin;
     private int points;
 
+    private List<int> goalscompleted = new List<int>();
+
     public User(){
         username = "admin";
         pin = 1234;
@@ -82,4 +84,6 @@ class User{
             Console.WriteLine(e.Message);
         }
     }*/
+
+    
 }

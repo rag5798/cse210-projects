@@ -18,7 +18,9 @@ abstract class Goal{
     public abstract void Complete();
     public abstract void SaveGoal();
 
-    public abstract void Display();
+    public abstract string Display();
+
+    public abstract int GetTypeOfGoal();
     public void SetPoints(int num){
         points = num;
     }

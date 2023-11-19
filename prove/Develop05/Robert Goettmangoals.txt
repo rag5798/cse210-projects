@@ -1,0 +1,62 @@
+Type: 1
+Goal: Workout
+Description: I want to workout once a day
+Points: 1000
+Completed: 1
+Type: 1
+Goal: Workout
+Description: I want to workout once a day
+Points: 1000
+Completed: 1
+Type: 3
+Goal: Read
+Description: Read Scripts
+Completions: 1/5
+Points: 100
+Completion Bonus: 1100
+
+Type: 2
+Goal: Read
+Description: Read Scripts
+Points: 1000
+Completed: 0
+
+Type: 3
+Goal: Read
+Description: Read Scripts
+Completions: 1/5
+Points: 100
+Completion Bonus: 1100
+
+Type: 2
+Goal: Read
+Description: Read Scripts
+Points: 1000
+Completed: 0
+
+Type: 2
+Goal: Read
+Description: Read Scripts
+Points: 1000
+Completed: 0
+
+Type: 2
+Goal: Read
+Description: Read Scripts
+Points: 1000
+Completed: 0
+
+Type: 3
+Goal: Read
+Description: Read Scripts
+Completions: 1/5
+Points: 100
+Completion Bonus: 1100
+
+Type: 3
+Goal: Read
+Description: Read Scripts
+Completions: 1/5
+Points: 100
+Completion Bonus: 1100
+
