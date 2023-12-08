@@ -56,4 +56,6 @@ abstract class Item{
     public abstract void Remove();
 
     public abstract void Check();
+
+    public abstract void Display();
 }
