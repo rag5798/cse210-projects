@@ -14,4 +14,19 @@ class Magazine : Item
     {
         throw new NotImplementedException();
     }
+
+    public Magazine(string n, string a, string t, int q):base(n, a, t, q)
+    {
+        SetName(n);
+        SetAuthor(a);
+        SetType(t);
+        SetQuantity(q);
+    }
+
+    public Magazine(){
+        SetName("");
+        SetAuthor("");
+        SetType("Magazine");
+        SetQuantity(1);
+    }
 }

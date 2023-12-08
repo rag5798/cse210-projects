@@ -14,4 +14,19 @@ class ComicBook : Item
     {
         throw new NotImplementedException();
     }
+
+    public ComicBook(string n, string a, string t, int q):base(n, a, t, q)
+    {
+        SetName(n);
+        SetAuthor(a);
+        SetType(t);
+        SetQuantity(q);
+    }
+
+    public ComicBook(){
+        SetName("");
+        SetAuthor("");
+        SetType("ComicBook");
+        SetQuantity(1);
+    }
 }
