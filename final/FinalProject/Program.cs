@@ -19,7 +19,7 @@ class Program
                 Console.WriteLine("1.) Login\n2.) Create User");
                 test = int.TryParse(Console.ReadLine(), out num);
             }
-
+            User u = new User();
             if (num == 1)
             {
                 string filepath = "Users.txt";
@@ -36,7 +36,7 @@ class Program
                     continue;
                 }
 
-                User u = new User();
+                
                 Console.Write("Please input a username:");
                 string user = Console.ReadLine();
                 u.SetUserName(user);
@@ -73,7 +73,6 @@ class Program
             {
                 string filepath = "Users.txt";
                 bool fileexists = File.Exists(filepath);
-                User u = new User();
                 Console.Write("Please input a username:");
                 string user = Console.ReadLine();
                 u.SetUserName(user);
@@ -124,10 +123,17 @@ class Program
 
             if (choice == 1)
             {
+                string filePath = "Books.txt";
+                string[] lines = File.ReadAllLines(filePath);
+                string[] fields;
+                foreach (string line in lines)
+                {
+                    fields = line.Split(',');
+                }
 
             }else if (choice == 2)
             {
-
+                
             }else if (choice == 3)
             {
                 Console.WriteLine("What type of Book are you Donating?");
