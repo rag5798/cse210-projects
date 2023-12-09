@@ -6,41 +6,56 @@ class Menu
 
     public User UserMenu()
     {
+        
         //User Creation/Login menu
-            Console.WriteLine("WELCOME TO THE LIBRARY");
+        Console.WriteLine("WELCOME TO THE LIBRARY");
+        Console.WriteLine("Please Select an option from the menu using the associated number:");
+        Console.WriteLine("1.) Login\n2.) Create User");
+        int num;
+        bool test = int.TryParse(Console.ReadLine(), out num);
+        while (test == false || num > 2 || num < 0)
+        {
             Console.WriteLine("Please Select an option from the menu using the associated number:");
             Console.WriteLine("1.) Login\n2.) Create User");
-            int num;
-            bool test = int.TryParse(Console.ReadLine(), out num);
-            while (test == false || num > 2 || num < 0)
+            test = int.TryParse(Console.ReadLine(), out num);
+        }
+        User u = new User();
+        if (num == 1)
+        {
+            string filepath = "Users.txt";
+            bool exists = File.Exists(filepath);
+            if (exists == false)
             {
-                Console.WriteLine("Please Select an option from the menu using the associated number:");
-                Console.WriteLine("1.) Login\n2.) Create User");
-                test = int.TryParse(Console.ReadLine(), out num);
+                Console.WriteLine("Please Create a User Before Login");
+                UserMenu();
             }
-            User u = new User();
-            if (num == 1)
+            bool isempty = new FileInfo(filepath).Length == 0;
+            if (isempty == true)
             {
-                string filepath = "Users.txt";
-                bool exists = File.Exists(filepath);
-                if (exists == false)
-                {
-                    Console.WriteLine("Please Create a User Before Login");
-                    UserMenu();
-                }
-                bool isempty = new FileInfo(filepath).Length == 0;
-                if (isempty == true)
-                {
-                    Console.WriteLine("Please Create a User Before Login");
-                    UserMenu();
-                }
+                Console.WriteLine("Please Create a User Before Login");
+                UserMenu();
+            }
+            Console.WriteLine("\nPlease Login to Access Your Account");
+            Console.Write("Please input a username: ");
+            string user = Console.ReadLine();
+            u.SetUserName(user);
 
-                
+            int pin;
+            test = int.TryParse(Console.ReadLine(), out pin);
+            while (test == false || pin > 9999 || pin < 1000)
+            {
+                Console.Write("Please input a 4 digit pin:");
+                test = int.TryParse(Console.ReadLine(), out pin);
+            }
+            u.SetPin(pin);
+            bool checkuser = u.CheckUserName();
+            bool checkpin = u.CheckPin();
+            while (checkuser == false || checkpin == false)
+            {
                 Console.Write("Please input a username:");
-                string user = Console.ReadLine();
+                user = Console.ReadLine();
                 u.SetUserName(user);
 
-                int pin;
                 test = int.TryParse(Console.ReadLine(), out pin);
                 while (test == false || pin > 9999 || pin < 1000)
                 {
@@ -48,67 +63,50 @@ class Menu
                     test = int.TryParse(Console.ReadLine(), out pin);
                 }
                 u.SetPin(pin);
-                bool checkuser = u.CheckUserName();
-                bool checkpin = u.CheckPin();
-                while (checkuser == false || checkpin == false)
+                checkuser = u.CheckUserName();
+                checkpin = u.CheckPin();
+            }
+
+        }else if (num == 2)
+        {
+            string filepath = "Users.txt";
+            bool fileexists = File.Exists(filepath);
+            Console.Write("Please input a username:");
+            string user = Console.ReadLine();
+            u.SetUserName(user);
+            if (fileexists == true)
+            {
+                bool exists = u.CheckUserName();
+                while (exists == true)
                 {
+                    Console.WriteLine("*Username is in use*");
                     Console.Write("Please input a username:");
                     user = Console.ReadLine();
                     u.SetUserName(user);
-
-                    test = int.TryParse(Console.ReadLine(), out pin);
-                    while (test == false || pin > 9999 || pin < 1000)
-                    {
-                        Console.Write("Please input a 4 digit pin:");
-                        test = int.TryParse(Console.ReadLine(), out pin);
-                    }
-                    u.SetPin(pin);
-                    checkuser = u.CheckUserName();
-                    checkpin = u.CheckPin();
+                    exists = u.CheckUserName();
                 }
-                
-
-            }else if (num == 2)
-            {
-                string filepath = "Users.txt";
-                bool fileexists = File.Exists(filepath);
-                Console.Write("Please input a username:");
-                string user = Console.ReadLine();
-                u.SetUserName(user);
-                if (fileexists == true)
-                {
-                    bool exists = u.CheckUserName();
-                    while (exists == true)
-                    {
-                        Console.WriteLine("*Username is in use*");
-                        Console.Write("Please input a username:");
-                        user = Console.ReadLine();
-                        u.SetUserName(user);
-                        exists = u.CheckUserName();
-                    }
-                }
-                
-
-
-                Console.Write("Please input a 4 digit pin:");
-                int pin;
-                test = int.TryParse(Console.ReadLine(), out pin);
-                while (test == false || pin > 9999 || pin < 1000)
-                {
-                    Console.Write("Please input a 4 digit pin:");
-                    test = int.TryParse(Console.ReadLine(), out pin);
-                }
-
-                u.SetPin(pin);
-                u.SaveUserToFile();
-                Console.WriteLine("***User Created***");
-
-            }else
-            {
-                Console.WriteLine("An Error Has Occured");
             }
-            return u;
-            //End of User Menu
+            
+
+
+            Console.Write("Please input a 4 digit pin:");
+            int pin;
+            test = int.TryParse(Console.ReadLine(), out pin);
+            while (test == false || pin > 9999 || pin < 1000)
+            {
+                Console.Write("Please input a 4 digit pin:");
+                test = int.TryParse(Console.ReadLine(), out pin);
+            }
+
+            u.SetPin(pin);
+            u.SaveUserToFile();
+            Console.WriteLine("***User Created***");
+        }else
+        {
+            Console.WriteLine("An Error Has Occured");
+        }
+        return u;
+        //End of User Menu
     }
     //Start of Return Menu
     public void ReturnBook(User u)
@@ -117,7 +115,14 @@ class Menu
         bool fileexists = File.Exists(filepath);
         if (fileexists == false)
         {
-            BookMenu();
+            Console.WriteLine("Please Borrow a Book Before Returning One");
+            BookMenu(u);
+        }
+        FileInfo isempty = new FileInfo(filepath);
+        if (isempty.Length == 0)
+        {
+            Console.WriteLine("Please Borrow a Book Before Returning One");
+            BookMenu(u);
         }
         
         string[] fields;
@@ -300,13 +305,22 @@ class Menu
     //Borrow Book Menu
     public void BorrowBook(User u)
     {
+        string userfile = $"{u.GetUserName()}books.txt";
+        if (File.Exists(userfile) == false)
+        {
+            using (FileStream fs = new FileStream(userfile, FileMode.Create))
+            {
+                
+            }
+        }
+
         string filepath = "Books.txt";
         bool fileexists = File.Exists(filepath);
         if (fileexists == false)
         {
-            BookMenu();
+            Console.WriteLine("No Books Are Avalible. Please Consider Donating to Start Our Public Collection");
+            BookMenu(u);
         }
-        
         string[] fields;
         List<dynamic> bookssplit = new List<dynamic>();
         using (StreamReader reader = new StreamReader(filepath))
@@ -353,7 +367,7 @@ class Menu
             }
         }
 
-
+        
 
         if (books.Count() < 5)
         {
@@ -423,8 +437,9 @@ class Menu
                 File.AppendAllText(filepath, texttoappend + Environment.NewLine);
 
                 string texttoreplace = $"{name},{author},{genre},{type},{quantity-1}";
+                string ogtext = $"{name},{author},{genre},{type},{quantity}";
                 string fileContents = File.ReadAllText("Books.txt");
-                fileContents = fileContents.Replace(texttoappend, texttoreplace);
+                fileContents = fileContents.Replace(ogtext, texttoreplace);
                 File.WriteAllText("Books.txt", fileContents);
             }else if (magazine == true){
                 filepath = $"{u.GetUserName()}books.txt";
@@ -446,8 +461,9 @@ class Menu
                 File.AppendAllText(filepath, texttoappend + Environment.NewLine);
 
                 string texttoreplace = $"{name},{author},{publishdate},{type},{quantity-1}";
+                string ogtext = $"{name},{author},{publishdate},{type},{quantity}";
                 string fileContents = File.ReadAllText("Books.txt");
-                fileContents = fileContents.Replace(texttoappend, texttoreplace);
+                fileContents = fileContents.Replace(ogtext, texttoreplace);
                 File.WriteAllText("Books.txt", fileContents);
             }else if (comicbook == true){
                 filepath = $"{u.GetUserName()}books.txt";
@@ -470,8 +486,9 @@ class Menu
                 File.AppendAllText(filepath, texttoappend + Environment.NewLine);
 
                 string texttoreplace = $"{name},{author},{volume},{booknumber},{type},{quantity-1}";
+                string ogtext = $"{name},{author},{volume},{booknumber},{type},{quantity}";
                 string fileContents = File.ReadAllText("Books.txt");
-                fileContents = fileContents.Replace(texttoappend, texttoreplace);
+                fileContents = fileContents.Replace(ogtext, texttoreplace);
                 File.WriteAllText("Books.txt", fileContents);
             }else{
                 Console.WriteLine("An Error has occured");
@@ -614,8 +631,22 @@ class Menu
     }
     //End of Borrow Book Menu
 
-    //unfinished
-    public void BookMenu()
+
+    public void LoadingBar()
+    {
+        Console.Write("Loading: [          ]");
+        for (int i = 0; i <= 10; i++)
+        {
+            Console.SetCursorPosition(11, Console.CursorTop);
+            Console.Write(new string('#', i));
+            Console.SetCursorPosition(22, Console.CursorTop);
+            Console.Write($"{i * 10}%");
+            System.Threading.Thread.Sleep(500);
+        }
+        Console.WriteLine();
+    }
+
+    public void BookMenu(User u)
     {
         //Start of Library Menu
         Console.WriteLine("Please Select an option from the menu using the associated number:");
@@ -631,8 +662,8 @@ class Menu
 
         if (choice == 1)
         {
-
-            string filepath = "Books.txt";
+            BorrowBook(u);
+            /*string filepath = "Books.txt";
             bool fileexists = File.Exists(filepath);
             if (fileexists == false)
             {
@@ -712,12 +743,12 @@ class Menu
                 
             }else{
 
-            }
+            }*/
 
 
         }else if (choice == 2)
         {
-            
+            ReturnBook(u);
         }else if (choice == 3)
         {
             Console.WriteLine("What type of Book are you Donating?");

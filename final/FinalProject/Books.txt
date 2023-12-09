@@ -1,3 +1,4 @@
-Robinhood,Ray,Fiction,Book,3
-Times,New York,13/5/1999,Magazine,3
-Spiderman,Stan Lee,1,1,ComicBook,3
+Robinhood,Ray,Fiction,Book,1
+Times,New York,13/5/1999,Magazine,2
+Spiderman,Stan Lee,1,1,ComicBook,2
+Jungle,Lewis,Fiction,Book,1
