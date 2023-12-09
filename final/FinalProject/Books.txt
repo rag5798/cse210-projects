@@ -1,0 +1,3 @@
+Robinhood,Ray,Fiction,Book,2
+Times,New York,13/5/1999,Magazine,2
+Spiderman,Stan Lee,1,1,ComicBook,1

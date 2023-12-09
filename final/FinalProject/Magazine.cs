@@ -32,7 +32,7 @@ class Magazine : Item
 
     public override void Display()
     {
-        Console.WriteLine($"Title: {GetName()}\nAuthor: {GetAuthor()}\nPublished: {GetPublishDate()}\nType: {GetType()}\nQuantity: {GetQuantity()}");
+        Console.WriteLine($"Title: {GetName()}\nAuthor: {GetAuthor()}\nPublished: {GetPublishDate()}\nType: {GetType()}\nQuantity: {GetQuantity()}\n");
     }
 
     public Magazine(string n, string a, string d, string t, int q):base(n, a, t, q)

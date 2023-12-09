@@ -28,7 +28,7 @@ class Book : Item
 
     public override void Display()
     {
-        Console.WriteLine($"Title: {GetName()}\nAuthor: {GetAuthor()}\nGenre: {GetGenre()}\nType: {GetType()}\nQuantity: {GetQuantity()}");
+        Console.WriteLine($"Title: {GetName()}\nAuthor: {GetAuthor()}\nGenre: {GetGenre()}\nType: {GetType()}\nQuantity: {GetQuantity()}\n");
     }
 
     public Book(string n, string a, string g, string t, int q):base(n, a, t, q)

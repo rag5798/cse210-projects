@@ -7,7 +7,10 @@ class Program
     {
         while (true)
         {
-            //User Creation/Login menu
+            Menu m = new Menu();
+            User u = m.UserMenu();
+            m.BorrowBook(u);
+            /*//User Creation/Login menu
             Console.WriteLine("WELCOME TO THE LIBRARY");
             Console.WriteLine("Please Select an option from the menu using the associated number:");
             Console.WriteLine("1.) Login\n2.) Create User");
@@ -123,8 +126,14 @@ class Program
 
             if (choice == 1)
             {
-                string filePath = "Books.txt";
-                string[] lines = File.ReadAllLines(filePath);
+
+                string filepath = "Books.txt";
+                bool fileexists = File.Exists(filepath);
+                if (fileexists == false)
+                {
+                    
+                }
+                string[] lines = File.ReadAllLines(filepath);
                 string[] fields;
                 foreach (string line in lines)
                 {
@@ -274,7 +283,7 @@ class Program
                     cb.Display();
                     cb.AddToFile();
                 }
-            }
+            }*/
         }
     }
 }

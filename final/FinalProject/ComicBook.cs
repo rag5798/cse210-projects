@@ -43,7 +43,7 @@ class ComicBook : Item
 
     public override void Display()
     {
-        Console.WriteLine($"Title: {GetName()}\nAuthor: {GetAuthor()}\nVolume: {GetVolume()}\nIssue: #{GetBookNumber()}\nType: {GetType()}\nQuantity: {GetQuantity()}");
+        Console.WriteLine($"Title: {GetName()}\nAuthor: {GetAuthor()}\nVolume: {GetVolume()}\nIssue: #{GetBookNumber()}\nType: {GetType()}\nQuantity: {GetQuantity()}\n");
     }
 
     public ComicBook(string n, string a, string v,  int b, string t, int q):base(n, a, t, q)
