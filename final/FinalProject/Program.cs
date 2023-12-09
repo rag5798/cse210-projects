@@ -5,11 +5,11 @@ class Program
 {
     static void Main(string[] args)
     {
+        Menu m = new Menu();
+        User u = m.UserMenu();
         bool cont = true;
         while (cont == true)
         {
-            Menu m = new Menu();
-            User u = m.UserMenu();
             m.BookMenu(u);
             Console.WriteLine("Would you like to Continue?");
             Console.WriteLine("1.) Continue\n2.) Exit");

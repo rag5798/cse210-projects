@@ -141,32 +141,32 @@ class Menu
 
         }
         List<dynamic> books = new List<dynamic>(){};
-        foreach (string x in bookssplit)
+        for (int x = 0; x<bookssplit.Count(); x++)
         {
-            if (x == "Book")
+            if (bookssplit[x] == "Book")
             {
                 Book b = new Book();
-                b.SetName(bookssplit[bookssplit.IndexOf(x)-3]);
-                b.SetAuthor(bookssplit[bookssplit.IndexOf(x)-2]);
-                b.SetGenre(bookssplit[bookssplit.IndexOf(x)-1]);
-                b.SetQuantity(int.Parse(bookssplit[bookssplit.IndexOf(x)+1]));
+                b.SetName(bookssplit[x-3]);
+                b.SetAuthor(bookssplit[x-2]);
+                b.SetGenre(bookssplit[x-1]);
+                b.SetQuantity(int.Parse(bookssplit[x+1]));
                 books.Add(b);
-            }else if (x == "Magazine")
+            }else if (bookssplit[x] == "Magazine")
             {
                 Magazine m = new Magazine();
-                m.SetName(bookssplit[bookssplit.IndexOf(x)-3]);
-                m.SetAuthor(bookssplit[bookssplit.IndexOf(x)-2]);
-                m.SetPublishDate(bookssplit[bookssplit.IndexOf(x)-1]);
-                m.SetQuantity(int.Parse(bookssplit[bookssplit.IndexOf(x)+1]));
+                m.SetName(bookssplit[x-3]);
+                m.SetAuthor(bookssplit[x-2]);
+                m.SetPublishDate(bookssplit[x-1]);
+                m.SetQuantity(int.Parse(bookssplit[x+1]));
                 books.Add(m);
-            }else if (x == "ComicBook")
+            }else if (bookssplit[x] == "ComicBook")
             {
                 ComicBook cb = new ComicBook();
-                cb.SetName(bookssplit[bookssplit.IndexOf(x)-4]);
-                cb.SetAuthor(bookssplit[bookssplit.IndexOf(x)-3]);
-                cb.SetVolume(bookssplit[bookssplit.IndexOf(x)-2]);
-                cb.SetBookNumber(int.Parse(bookssplit[bookssplit.IndexOf(x)-1]));
-                cb.SetQuantity(int.Parse(bookssplit[bookssplit.IndexOf(x)+1]));
+                cb.SetName(bookssplit[x-4]);
+                cb.SetAuthor(bookssplit[x-3]);
+                cb.SetVolume(bookssplit[x-2]);
+                cb.SetBookNumber(int.Parse(bookssplit[x-1]));
+                cb.SetQuantity(int.Parse(bookssplit[x+1]));
                 books.Add(cb);
             }
         }
@@ -329,7 +329,6 @@ class Menu
             while ((line = reader.ReadLine()) != null)
             {
                 fields = line.Split(',');
-                // Do something with the fields
                 foreach (string x in fields){
                     bookssplit.Add(x);
                 }
@@ -337,32 +336,32 @@ class Menu
 
         }
         List<dynamic> books = new List<dynamic>(){};
-        foreach (string x in bookssplit)
+        for (int x = 0; x<bookssplit.Count(); x++)
         {
-            if (x == "Book")
+            if (bookssplit[x] == "Book")
             {
                 Book b = new Book();
-                b.SetName(bookssplit[bookssplit.IndexOf(x)-3]);
-                b.SetAuthor(bookssplit[bookssplit.IndexOf(x)-2]);
-                b.SetGenre(bookssplit[bookssplit.IndexOf(x)-1]);
-                b.SetQuantity(int.Parse(bookssplit[bookssplit.IndexOf(x)+1]));
+                b.SetName(bookssplit[x-3]);
+                b.SetAuthor(bookssplit[x-2]);
+                b.SetGenre(bookssplit[x-1]);
+                b.SetQuantity(int.Parse(bookssplit[x+1]));
                 books.Add(b);
-            }else if (x == "Magazine")
+            }else if (bookssplit[x] == "Magazine")
             {
                 Magazine m = new Magazine();
-                m.SetName(bookssplit[bookssplit.IndexOf(x)-3]);
-                m.SetAuthor(bookssplit[bookssplit.IndexOf(x)-2]);
-                m.SetPublishDate(bookssplit[bookssplit.IndexOf(x)-1]);
-                m.SetQuantity(int.Parse(bookssplit[bookssplit.IndexOf(x)+1]));
+                m.SetName(bookssplit[x-3]);
+                m.SetAuthor(bookssplit[x-2]);
+                m.SetPublishDate(bookssplit[x-1]);
+                m.SetQuantity(int.Parse(bookssplit[x+1]));
                 books.Add(m);
-            }else if (x == "ComicBook")
+            }else if (bookssplit[x] == "ComicBook")
             {
                 ComicBook cb = new ComicBook();
-                cb.SetName(bookssplit[bookssplit.IndexOf(x)-4]);
-                cb.SetAuthor(bookssplit[bookssplit.IndexOf(x)-3]);
-                cb.SetVolume(bookssplit[bookssplit.IndexOf(x)-2]);
-                cb.SetBookNumber(int.Parse(bookssplit[bookssplit.IndexOf(x)-1]));
-                cb.SetQuantity(int.Parse(bookssplit[bookssplit.IndexOf(x)+1]));
+                cb.SetName(bookssplit[x-4]);
+                cb.SetAuthor(bookssplit[x-3]);
+                cb.SetVolume(bookssplit[x-2]);
+                cb.SetBookNumber(int.Parse(bookssplit[x-1]));
+                cb.SetQuantity(int.Parse(bookssplit[x+1]));
                 books.Add(cb);
             }
         }
