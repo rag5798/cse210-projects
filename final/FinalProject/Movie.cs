@@ -36,7 +36,7 @@ class Movie : Item
 
     public override void Display()
     {
-        Console.WriteLine($"Title: {GetName()},Director: {GetAuthor()},Genre: {GetGenre()},Rating: {GetRating()},Type: {GetType()},Quantity: {GetQuantity()}\n");
+        Console.WriteLine($"Title: {GetName()}\nDirector: {GetAuthor()}\nGenre: {GetGenre()}\nRating: {GetRating()}\nType: {GetType()}\nQuantity: {GetQuantity()}\n");
     }
 
     public override void Remove()

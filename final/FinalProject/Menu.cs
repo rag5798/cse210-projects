@@ -1,5 +1,4 @@
-using System.Runtime.CompilerServices;
-using System.Text.Json.Serialization;
+
 
 class Menu
 {
@@ -454,7 +453,7 @@ class Menu
                 m.SetName(bookssplit[x-4]);
                 m.SetAuthor(bookssplit[x-3]);
                 m.SetGenre(bookssplit[x-2]);
-                m.SetRating(int.Parse(bookssplit[x-1]));
+                m.SetRating(bookssplit[x-1]);
                 m.SetQuantity(int.Parse(bookssplit[x+1]));
                 books.Add(m);
             }else if (bookssplit[x] == "VideoGame"){
@@ -463,12 +462,13 @@ class Menu
                 vg.SetAuthor(bookssplit[x-2]);
                 vg.SetSystem(bookssplit[x-1]);
                 vg.SetQuantity(int.Parse(bookssplit[x+1]));
+                books.Add(vg);
             }
         }
 
         
 
-        if (books.Count() < 5)
+        if (books.Count() < 10)
         {
             foreach (Item i in books)
             {
@@ -486,6 +486,7 @@ class Menu
                     i.Display();
                 }
                 Console.WriteLine("Please use the Corresponding Numbers to select a Book to Borrow");
+                bookchoice = 0;
                 testchoice = int.TryParse(Console.ReadLine(), out bookchoice);
             }
             bool book = false;
@@ -608,6 +609,7 @@ class Menu
                 fileContents = fileContents.Replace(ogtext, texttoreplace);
                 File.WriteAllText("Books.txt", fileContents);
             }else if (movie == true){
+                Console.WriteLine(books[bookchoice-1].GetRating());
                 filepath = $"{u.GetUserName()}books.txt";
                 string name = books[bookchoice-1].GetName();
                 string author = books[bookchoice-1].GetAuthor();
@@ -626,6 +628,7 @@ class Menu
                     return;
                 }
                 File.AppendAllText(filepath, texttoappend + Environment.NewLine);
+
 
                 string texttoreplace = $"{name},{author},{genre},{rating},{type},{quantity-1}";
                 string ogtext = $"{name},{author},{genre},{rating},{type},{quantity}";
@@ -735,7 +738,7 @@ class Menu
 
             try
             {
-                books[foundon[bookchoice-1]-1].GetRating();
+                string rate = books[foundon[bookchoice-1]-1].GetRating();
                 movie = true;
             }catch (Exception){
                 movie = false;
@@ -807,7 +810,7 @@ class Menu
                 }
                 File.AppendAllText(filepath, texttoappend + Environment.NewLine);
             }else if (movie == true){
-                 filepath = $"{u.GetUserName()}books.txt";
+                filepath = $"{u.GetUserName()}books.txt";
                 string name = books[foundon[bookchoice-1]-1].GetName();
                 string author = books[foundon[bookchoice-1]-1].GetAuthor();
                 string genre = books[foundon[bookchoice-1]-1].GetGenre();
@@ -1118,7 +1121,7 @@ class Menu
                     Console.Write("Out of 10, how would you rate the movie: ");
                     testtop = int.TryParse(Console.ReadLine(), out top);
                 }
-                string fraction = $"{top}/10";
+                string fraction = $"{top} of 10";
                 m.SetRating(fraction);
 
                 Console.Write("How many copies are you Donating: ");
@@ -1147,7 +1150,7 @@ class Menu
 
                 Console.Write("What system is the Video Game for: ");
                 string system = Console.ReadLine();
-                vg.SetName(system);
+                vg.SetSystem(system);
 
                 Console.Write("How many copies are you Donating: ");
                 int quantity;

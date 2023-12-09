@@ -23,7 +23,7 @@ class VideoGame : Item
 
     public override void Display()
     {
-        Console.WriteLine($"Title: {GetName()},Publisher: {GetAuthor()},System: {GetSystem()},Type: {GetType()},Quantity: {GetQuantity()}\n");
+        Console.WriteLine($"Title: {GetName()}\nPublisher: {GetAuthor()}\nSystem: {GetSystem()}\nType: {GetType()}\nQuantity: {GetQuantity()}\n");
     }
 
     public override void Remove()
