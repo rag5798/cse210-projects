@@ -9,7 +9,8 @@ class Program
         {
             Menu m = new Menu();
             User u = m.UserMenu();
-            m.BorrowBook(u);
+            //m.BorrowBook(u);
+            m.ReturnBook(u);
             /*//User Creation/Login menu
             Console.WriteLine("WELCOME TO THE LIBRARY");
             Console.WriteLine("Please Select an option from the menu using the associated number:");

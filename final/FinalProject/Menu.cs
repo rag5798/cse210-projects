@@ -110,6 +110,193 @@ class Menu
             return u;
             //End of User Menu
     }
+    //Start of Return Menu
+    public void ReturnBook(User u)
+    {
+        string filepath = $"{u.GetUserName()}books.txt";
+        bool fileexists = File.Exists(filepath);
+        if (fileexists == false)
+        {
+            BookMenu();
+        }
+        
+        string[] fields;
+        List<dynamic> bookssplit = new List<dynamic>();
+        using (StreamReader reader = new StreamReader(filepath))
+        {
+            string line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                fields = line.Split(',');
+                // Do something with the fields
+                foreach (string x in fields){
+                    bookssplit.Add(x);
+                }
+            }
+
+        }
+        List<dynamic> books = new List<dynamic>(){};
+        foreach (string x in bookssplit)
+        {
+            if (x == "Book")
+            {
+                Book b = new Book();
+                b.SetName(bookssplit[bookssplit.IndexOf(x)-3]);
+                b.SetAuthor(bookssplit[bookssplit.IndexOf(x)-2]);
+                b.SetGenre(bookssplit[bookssplit.IndexOf(x)-1]);
+                b.SetQuantity(int.Parse(bookssplit[bookssplit.IndexOf(x)+1]));
+                books.Add(b);
+            }else if (x == "Magazine")
+            {
+                Magazine m = new Magazine();
+                m.SetName(bookssplit[bookssplit.IndexOf(x)-3]);
+                m.SetAuthor(bookssplit[bookssplit.IndexOf(x)-2]);
+                m.SetPublishDate(bookssplit[bookssplit.IndexOf(x)-1]);
+                m.SetQuantity(int.Parse(bookssplit[bookssplit.IndexOf(x)+1]));
+                books.Add(m);
+            }else if (x == "ComicBook")
+            {
+                ComicBook cb = new ComicBook();
+                cb.SetName(bookssplit[bookssplit.IndexOf(x)-4]);
+                cb.SetAuthor(bookssplit[bookssplit.IndexOf(x)-3]);
+                cb.SetVolume(bookssplit[bookssplit.IndexOf(x)-2]);
+                cb.SetBookNumber(int.Parse(bookssplit[bookssplit.IndexOf(x)-1]));
+                cb.SetQuantity(int.Parse(bookssplit[bookssplit.IndexOf(x)+1]));
+                books.Add(cb);
+            }
+        }
+        foreach (Item i in books)
+        {
+            Console.Write($"{books.IndexOf(i)+1}.) ");
+            i.Display();
+        }
+        Console.WriteLine("Please use the Corresponding Numbers to select a Book to Borrow");
+        int bookchoice;
+        bool testchoice = int.TryParse(Console.ReadLine(), out bookchoice);
+        while (testchoice == false || bookchoice < 1 || bookchoice > books.Count())
+        {
+            foreach (Item i in books)
+            {
+                Console.Write($"{books.IndexOf(i)+1}.) ");
+                i.Display();
+            }
+            Console.WriteLine("Please use the Corresponding Numbers to select a Book to Borrow");
+            testchoice = int.TryParse(Console.ReadLine(), out bookchoice);
+        }
+
+        bool book = false;
+        bool magazine = false;
+        bool comicbook = false;
+        try
+        {
+            books[bookchoice-1].GetGenre();
+            book = true;
+        }catch (Exception){
+            book = false;
+        }
+
+        try
+        {
+            books[bookchoice-1].GetPublishDate();
+            magazine = true;
+        }catch (Exception){
+            magazine = false;
+        }
+
+        try
+        {
+            books[bookchoice-1].GetVolume();
+            comicbook = true;
+        }catch (Exception){
+            comicbook = false;
+        }
+
+        if (book == true){
+            filepath = $"{u.GetUserName()}books.txt";
+            string name = books[bookchoice-1].GetName();
+            string author = books[bookchoice-1].GetAuthor();
+            string genre = books[bookchoice-1].GetGenre();
+            string type = books[bookchoice-1].GetBookType();
+            int quantity = books[bookchoice-1].GetQuantity();
+            string texttoremove = $"{name},{author},{genre},{type},1";
+            string fileContents = File.ReadAllText(filepath);
+            fileContents = fileContents.Replace(texttoremove, string.Empty);
+            File.WriteAllText(filepath, fileContents);
+            List<string> lines = File.ReadAllLines(filepath).ToList();
+            lines.RemoveAll(string.IsNullOrWhiteSpace);
+            File.WriteAllLines(filepath, lines);
+
+            
+            int num = 0;
+            while (File.ReadAllText("Books.txt").Contains(texttoremove) == false)
+            {
+                texttoremove = $"{name},{author},{genre},{type},{num}";
+                num++;
+            }
+            string texttoreplace = $"{name},{author},{genre},{type},{num}";
+            fileContents = File.ReadAllText("Books.txt");
+            fileContents = fileContents.Replace(texttoremove, texttoreplace);
+            File.WriteAllText("Books.txt", fileContents);
+        }else if (magazine == true){
+            filepath = $"{u.GetUserName()}books.txt";
+            string name = books[bookchoice-1].GetName();
+            string author = books[bookchoice-1].GetAuthor();
+            string publishdate = books[bookchoice-1].GetPublishDate();
+            string type = books[bookchoice-1].GetBookType();
+            int quantity = books[bookchoice-1].GetQuantity();
+            string texttoremove = $"{name},{author},{publishdate},{type},1";
+            string fileContents = File.ReadAllText(filepath);
+            fileContents = fileContents.Replace(texttoremove, string.Empty);
+            File.WriteAllText(filepath, fileContents);
+            List<string> lines = File.ReadAllLines(filepath).ToList();
+            lines.RemoveAll(string.IsNullOrWhiteSpace);
+            File.WriteAllLines(filepath, lines);
+
+            
+            int num = 0;
+            while (File.ReadAllText("Books.txt").Contains(texttoremove) == false)
+            {
+                texttoremove = $"{name},{author},{publishdate},{type},{num}";
+                num++;
+            }
+            string texttoreplace = $"{name},{author},{publishdate},{type},{num}";
+            fileContents = File.ReadAllText("Books.txt");
+            fileContents = fileContents.Replace(texttoremove, texttoreplace);
+            File.WriteAllText("Books.txt", fileContents);
+        }else if (comicbook == true){
+            filepath = $"{u.GetUserName()}books.txt";
+            string name = books[bookchoice-1].GetName();
+            string author = books[bookchoice-1].GetAuthor();
+            string volume = books[bookchoice-1].GetVolume();
+            int booknumber = books[bookchoice-1].GetBookNumber();
+            string type = books[bookchoice-1].GetBookType();
+            int quantity = books[bookchoice-1].GetQuantity();
+            string texttoremove = $"{name},{author},{volume},{booknumber},{type},1";
+            string fileContents = File.ReadAllText(filepath);
+            fileContents = fileContents.Replace(texttoremove, string.Empty);
+            File.WriteAllText(filepath, fileContents);
+            List<string> lines = File.ReadAllLines(filepath).ToList();
+            lines.RemoveAll(string.IsNullOrWhiteSpace);
+            File.WriteAllLines(filepath, lines);
+
+            
+            int num = 0;
+            while (File.ReadAllText("Books.txt").Contains(texttoremove) == false)
+            {
+                texttoremove = $"{name},{author},{volume},{booknumber},{type},{num}";
+                num++;
+            }
+            string texttoreplace = $"{name},{author},{volume},{booknumber},{type},{num}";
+            fileContents = File.ReadAllText("Books.txt");
+            fileContents = fileContents.Replace(texttoremove, texttoreplace);
+            File.WriteAllText("Books.txt", fileContents);
+        }else{
+            Console.WriteLine("An Error has Occured");
+        }
+    }
+    //End of Return Menu
+
+
     //Borrow Book Menu
     public void BorrowBook(User u)
     {
@@ -427,6 +614,7 @@ class Menu
     }
     //End of Borrow Book Menu
 
+    //unfinished
     public void BookMenu()
     {
         //Start of Library Menu
