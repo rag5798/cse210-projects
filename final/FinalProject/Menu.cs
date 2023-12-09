@@ -168,6 +168,21 @@ class Menu
                 cb.SetBookNumber(int.Parse(bookssplit[x-1]));
                 cb.SetQuantity(int.Parse(bookssplit[x+1]));
                 books.Add(cb);
+            }else if (bookssplit[x] == "Movie"){
+                Movie m = new Movie();
+                m.SetName(bookssplit[x-4]);
+                m.SetAuthor(bookssplit[x-3]);
+                m.SetGenre(bookssplit[x-2]);
+                m.SetRating(bookssplit[x-1]);
+                m.SetQuantity(bookssplit[x+1]);
+                books.Add(m);
+            }else if (bookssplit[x] == "VideoGame"){
+                VideoGame vg = new VideoGame();
+                vg.SetName(bookssplit[x-3]);
+                vg.SetAuthor(bookssplit[x-2]);
+                vg.SetSystem(bookssplit[x-1]);
+                vg.SetQuantity(bookssplit[x+1]);
+                books.Add(vg);
             }
         }
         foreach (Item i in books)
@@ -192,6 +207,8 @@ class Menu
         bool book = false;
         bool magazine = false;
         bool comicbook = false;
+        bool movie = false;
+        bool videogame = false;
         try
         {
             books[bookchoice-1].GetGenre();
@@ -214,6 +231,22 @@ class Menu
             comicbook = true;
         }catch (Exception){
             comicbook = false;
+        }
+
+        try
+        {
+            books[bookchoice-1].GetRating();
+            movie = true;
+        }catch (Exception){
+            movie = false;
+        }
+
+        try
+        {
+            books[bookchoice-1].GetSystem();
+            videogame = true;
+        }catch (Exception){
+            videogame = false;
         }
 
         if (book == true){
@@ -295,6 +328,59 @@ class Menu
             fileContents = File.ReadAllText("Books.txt");
             fileContents = fileContents.Replace(texttoremove, texttoreplace);
             File.WriteAllText("Books.txt", fileContents);
+        }else if (movie == true){
+            filepath = $"{u.GetUserName()}books.txt";
+            string name = books[bookchoice-1].GetName();
+            string author = books[bookchoice-1].GetAuthor();
+            string genre = books[bookchoice-1].GetGenre();
+            string rating = books[bookchoice-1].GetRating();
+            string type = books[bookchoice-1].GetBookType();
+            int quantity = books[bookchoice-1].GetQuantity();
+            string texttoremove = $"{name},{author},{genre},{rating},{type},1";
+            string fileContents = File.ReadAllText(filepath);
+            fileContents = fileContents.Replace(texttoremove, string.Empty);
+            File.WriteAllText(filepath, fileContents);
+            List<string> lines = File.ReadAllLines(filepath).ToList();
+            lines.RemoveAll(string.IsNullOrWhiteSpace);
+            File.WriteAllLines(filepath, lines);
+
+            
+            int num = 0;
+            while (File.ReadAllText("Books.txt").Contains(texttoremove) == false)
+            {
+                texttoremove = $"{name},{author},{genre},{rating},{type},{num}";
+                num++;
+            }
+            string texttoreplace = $"{name},{author},{genre},{rating},{type},{num}";
+            fileContents = File.ReadAllText("Books.txt");
+            fileContents = fileContents.Replace(texttoremove, texttoreplace);
+            File.WriteAllText("Books.txt", fileContents);
+        }else if (videogame == true){
+            filepath = $"{u.GetUserName()}books.txt";
+            string name = books[bookchoice-1].GetName();
+            string author = books[bookchoice-1].GetAuthor();
+            string system = books[bookchoice-1].GetSystem();
+            string type = books[bookchoice-1].GetBookType();
+            int quantity = books[bookchoice-1].GetQuantity();
+            string texttoremove = $"{name},{author},{system},{type},1";
+            string fileContents = File.ReadAllText(filepath);
+            fileContents = fileContents.Replace(texttoremove, string.Empty);
+            File.WriteAllText(filepath, fileContents);
+            List<string> lines = File.ReadAllLines(filepath).ToList();
+            lines.RemoveAll(string.IsNullOrWhiteSpace);
+            File.WriteAllLines(filepath, lines);
+
+            
+            int num = 0;
+            while (File.ReadAllText("Books.txt").Contains(texttoremove) == false)
+            {
+                texttoremove = $"{name},{author},{system},{type},{num}";
+                num++;
+            }
+            string texttoreplace = $"{name},{author},{system},{type},{num}";
+            fileContents = File.ReadAllText("Books.txt");
+            fileContents = fileContents.Replace(texttoremove, texttoreplace);
+            File.WriteAllText("Books.txt", fileContents);
         }else{
             Console.WriteLine("An Error has Occured");
         }
@@ -363,6 +449,20 @@ class Menu
                 cb.SetBookNumber(int.Parse(bookssplit[x-1]));
                 cb.SetQuantity(int.Parse(bookssplit[x+1]));
                 books.Add(cb);
+            }else if (bookssplit[x] == "Movie"){
+                Movie m = new Movie();
+                m.SetName(bookssplit[x-4]);
+                m.SetAuthor(bookssplit[x-3]);
+                m.SetGenre(bookssplit[x-2]);
+                m.SetRating(int.Parse(bookssplit[x-1]));
+                m.SetQuantity(int.Parse(bookssplit[x+1]));
+                books.Add(m);
+            }else if (bookssplit[x] == "VideoGame"){
+                VideoGame vg = new VideoGame();
+                vg.SetName(bookssplit[x-3]);
+                vg.SetAuthor(bookssplit[x-2]);
+                vg.SetSystem(bookssplit[x-1]);
+                vg.SetQuantity(int.Parse(bookssplit[x+1]));
             }
         }
 
@@ -391,6 +491,8 @@ class Menu
             bool book = false;
             bool magazine = false;
             bool comicbook = false;
+            bool movie = false;
+            bool videogame = false;
             try
             {
                 books[bookchoice-1].GetGenre();
@@ -413,6 +515,22 @@ class Menu
                 comicbook = true;
             }catch (Exception){
                 comicbook = false;
+            }
+
+            try
+            {
+                books[bookchoice-1].GetRating();
+                movie = true;
+            }catch (Exception){
+                movie = false;
+            }
+
+            try
+            {
+                books[bookchoice-1].GetSystem();
+                videogame = true;
+            }catch (Exception){
+                videogame = false;
             }
             
             if (book == true)
@@ -489,6 +607,55 @@ class Menu
                 string fileContents = File.ReadAllText("Books.txt");
                 fileContents = fileContents.Replace(ogtext, texttoreplace);
                 File.WriteAllText("Books.txt", fileContents);
+            }else if (movie == true){
+                filepath = $"{u.GetUserName()}books.txt";
+                string name = books[bookchoice-1].GetName();
+                string author = books[bookchoice-1].GetAuthor();
+                string genre = books[bookchoice-1].GetGenre();
+                string rating = books[bookchoice-1].GetRating();
+                string type = books[bookchoice-1].GetBookType();
+                int quantity = books[bookchoice-1].GetQuantity();
+                if (quantity == 0){
+                    Console.WriteLine("This Book is Out of Stock");
+                    return;
+                }
+                string texttoappend = $"{name},{author},{genre},{rating},{type},1";
+                if (File.ReadAllText(filepath).Contains(texttoappend))
+                {
+                    Console.WriteLine("You have already Borrowed this book");
+                    return;
+                }
+                File.AppendAllText(filepath, texttoappend + Environment.NewLine);
+
+                string texttoreplace = $"{name},{author},{genre},{rating},{type},{quantity-1}";
+                string ogtext = $"{name},{author},{genre},{rating},{type},{quantity}";
+                string fileContents = File.ReadAllText("Books.txt");
+                fileContents = fileContents.Replace(ogtext, texttoreplace);
+                File.WriteAllText("Books.txt", fileContents);
+            }else if (videogame == true){
+                filepath = $"{u.GetUserName()}books.txt";
+                string name = books[bookchoice-1].GetName();
+                string author = books[bookchoice-1].GetAuthor();
+                string system = books[bookchoice-1].GetSystem();
+                string type = books[bookchoice-1].GetBookType();
+                int quantity = books[bookchoice-1].GetQuantity();
+                if (quantity == 0){
+                    Console.WriteLine("This Book is Out of Stock");
+                    return;
+                }
+                string texttoappend = $"{name},{author},{system},{type},1";
+                if (File.ReadAllText(filepath).Contains(texttoappend))
+                {
+                    Console.WriteLine("You have already Borrowed this book");
+                    return;
+                }
+                File.AppendAllText(filepath, texttoappend + Environment.NewLine);
+
+                string texttoreplace = $"{name},{author},{system},{type},{quantity-1}";
+                string ogtext = $"{name},{author},{system},{type},{quantity}";
+                string fileContents = File.ReadAllText("Books.txt");
+                fileContents = fileContents.Replace(ogtext, texttoreplace);
+                File.WriteAllText("Books.txt", fileContents);
             }else{
                 Console.WriteLine("An Error has occured");
             }
@@ -540,6 +707,8 @@ class Menu
             bool book = false;
             bool magazine = false;
             bool comicbook = false;
+            bool movie = false;
+            bool videogame = false;
             try
             {
                 books[foundon[bookchoice-1]-1].GetGenre();
@@ -562,6 +731,22 @@ class Menu
                 comicbook = true;
             }catch (Exception){
                 comicbook = false;
+            }
+
+            try
+            {
+                books[foundon[bookchoice-1]-1].GetRating();
+                movie = true;
+            }catch (Exception){
+                movie = false;
+            }
+
+            try
+            {
+                books[foundon[bookchoice-1]-1].GetSystem();
+                videogame = true;
+            }catch (Exception){
+                videogame = false;
             }
             
             if (book == true)
@@ -621,6 +806,44 @@ class Menu
                     return;
                 }
                 File.AppendAllText(filepath, texttoappend + Environment.NewLine);
+            }else if (movie == true){
+                 filepath = $"{u.GetUserName()}books.txt";
+                string name = books[foundon[bookchoice-1]-1].GetName();
+                string author = books[foundon[bookchoice-1]-1].GetAuthor();
+                string genre = books[foundon[bookchoice-1]-1].GetGenre();
+                string rating = books[foundon[bookchoice-1]-1].GetRating();
+                string type = books[foundon[bookchoice-1]-1].GetBookType();
+                int quantity = books[foundon[bookchoice-1]-1].GetQuantity();
+                if (quantity == 0){
+                    Console.WriteLine("This Book is Out of Stock");
+                    return;
+                }
+                string texttoappend = $"{name},{author},{genre},{rating},{type},{quantity}";
+                if (File.ReadAllText(filepath).Contains(texttoappend))
+                {
+                    Console.WriteLine("You have already Borrowed this book");
+                    Console.WriteLine();
+                    return;
+                }
+                File.AppendAllText(filepath, texttoappend + Environment.NewLine);
+            }else if (videogame == true){
+                filepath = $"{u.GetUserName()}books.txt";
+                string name = books[foundon[bookchoice-1]-1].GetName();
+                string author = books[foundon[bookchoice-1]-1].GetAuthor();
+                string system = books[foundon[bookchoice-1]-1].GetSystem();
+                string type = books[foundon[bookchoice-1]-1].GetBookType();
+                int quantity = books[foundon[bookchoice-1]-1].GetQuantity();
+                if (quantity == 0){
+                    Console.WriteLine("This Book is Out of Stock");
+                    return;
+                }
+                string texttoappend = $"{name},{author},{system},{type},1";
+                if (File.ReadAllText(filepath).Contains(texttoappend))
+                {
+                    Console.WriteLine("You have already Borrowed this book");
+                    return;
+                }
+                File.AppendAllText(filepath, texttoappend + Environment.NewLine);
             }else{
                 Console.WriteLine("An Error has occured");
             }
@@ -629,21 +852,6 @@ class Menu
         }
     }
     //End of Borrow Book Menu
-
-
-    public void LoadingBar()
-    {
-        Console.Write("Loading: [          ]");
-        for (int i = 0; i <= 10; i++)
-        {
-            Console.SetCursorPosition(11, Console.CursorTop);
-            Console.Write(new string('#', i));
-            Console.SetCursorPosition(22, Console.CursorTop);
-            Console.Write($"{i * 10}%");
-            System.Threading.Thread.Sleep(500);
-        }
-        Console.WriteLine();
-    }
 
     public void BookMenu(User u)
     {
@@ -751,13 +959,13 @@ class Menu
         }else if (choice == 3)
         {
             Console.WriteLine("What type of Book are you Donating?");
-            Console.WriteLine("1.) Book\n2.) Magazine\n3.) Comic Book");
+            Console.WriteLine("1.) Book\n2.) Magazine\n3.) Comic Book\n4.) Movie\n5.) Video Game");
             int booktype;
             bool testchoice = int.TryParse(Console.ReadLine(), out booktype);
-            while (testchoice == false || booktype > 3 || booktype < 0)
+            while (testchoice == false || booktype > 5 || booktype < 0)
             {
                 Console.WriteLine("What type of Book are you Donating?");
-                Console.WriteLine("1.) Book\n2.) Magazine\n3.) Comic Book");
+                Console.WriteLine("1.) Book\n2.) Magazine\n3.) Comic Book\n4.) Movie\n5.) Video Game");
                 testchoice = int.TryParse(Console.ReadLine(), out booktype);
             }
 
@@ -887,6 +1095,73 @@ class Menu
                 Console.WriteLine("You Donated the Comic Book:");
                 cb.Display();
                 cb.AddToFile();
+            }else if (booktype == 4)
+            {
+                Movie m = new Movie();
+                Console.Write("What is the title of the Movie: ");
+                string title = Console.ReadLine();
+                m.SetName(title);
+
+                Console.Write("Who is the Director of the Movie: ");
+                string author = Console.ReadLine();
+                m.SetAuthor(author);
+
+                Console.Write("What is the genre of the Book: ");
+                string genre = Console.ReadLine();
+                m.SetGenre(genre);
+
+                Console.Write("Out of 10, how would you rate the movie: ");
+                int top;
+                bool testtop = int.TryParse(Console.ReadLine(), out top);
+                while (testtop == false || top < 1 || top > 9)
+                {
+                    Console.Write("Out of 10, how would you rate the movie: ");
+                    testtop = int.TryParse(Console.ReadLine(), out top);
+                }
+                string fraction = $"{top}/10";
+                m.SetRating(fraction);
+
+                Console.Write("How many copies are you Donating: ");
+                int quantity;
+                bool testquant = int.TryParse(Console.ReadLine(), out quantity);
+                while (testquant == false)
+                {
+                    Console.Write("How many copies are you Donating: ");
+                    testquant = int.TryParse(Console.ReadLine(), out quantity);
+                }
+                m.SetQuantity(quantity);
+
+                Console.WriteLine("You Donated the Movie:");
+                m.Display();
+                m.AddToFile();
+            }else if (booktype == 5)
+            {
+                VideoGame vg = new VideoGame();
+                Console.Write("What is the title of the Video Game: ");
+                string title = Console.ReadLine();
+                vg.SetName(title);
+
+                Console.Write("Who is the publisher of the Video Game: ");
+                string author = Console.ReadLine();
+                vg.SetAuthor(author);
+
+                Console.Write("What system is the Video Game for: ");
+                string system = Console.ReadLine();
+                vg.SetName(system);
+
+                Console.Write("How many copies are you Donating: ");
+                int quantity;
+                bool testquant = int.TryParse(Console.ReadLine(), out quantity);
+                while (testquant == false)
+                {
+                    Console.Write("How many copies are you Donating: ");
+                    testquant = int.TryParse(Console.ReadLine(), out quantity);
+                }
+                vg.SetQuantity(quantity);
+
+                Console.WriteLine("You Donated the Video Game:");
+                vg.Display();
+                vg.AddToFile();
             }
         }
     }
