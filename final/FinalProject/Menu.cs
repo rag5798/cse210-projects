@@ -34,13 +34,12 @@ class Menu
                 Console.WriteLine("Please Create a User Before Login");
                 UserMenu();
             }
-            Console.WriteLine("\nPlease Login to Access Your Account");
+            Console.WriteLine("Please Login to Access Your Account");
             Console.Write("Please input a username: ");
             string user = Console.ReadLine();
             u.SetUserName(user);
 
-            int pin;
-            test = int.TryParse(Console.ReadLine(), out pin);
+            test = int.TryParse(Console.ReadLine(), out int pin);
             while (test == false || pin > 9999 || pin < 1000)
             {
                 Console.Write("Please input a 4 digit pin:");
@@ -51,7 +50,7 @@ class Menu
             bool checkpin = u.CheckPin();
             while (checkuser == false || checkpin == false)
             {
-                Console.Write("Please input a username:");
+                /*Console.Write("Please input a username:");
                 user = Console.ReadLine();
                 u.SetUserName(user);
 
@@ -63,7 +62,8 @@ class Menu
                 }
                 u.SetPin(pin);
                 checkuser = u.CheckUserName();
-                checkpin = u.CheckPin();
+                checkpin = u.CheckPin();*/
+                UserMenu();
             }
 
         }else if (num == 2)
@@ -132,7 +132,6 @@ class Menu
             while ((line = reader.ReadLine()) != null)
             {
                 fields = line.Split(',');
-                // Do something with the fields
                 foreach (string x in fields){
                     bookssplit.Add(x);
                 }
@@ -173,14 +172,14 @@ class Menu
                 m.SetAuthor(bookssplit[x-3]);
                 m.SetGenre(bookssplit[x-2]);
                 m.SetRating(bookssplit[x-1]);
-                m.SetQuantity(bookssplit[x+1]);
+                m.SetQuantity(int.Parse(bookssplit[x+1]));
                 books.Add(m);
             }else if (bookssplit[x] == "VideoGame"){
                 VideoGame vg = new VideoGame();
                 vg.SetName(bookssplit[x-3]);
                 vg.SetAuthor(bookssplit[x-2]);
                 vg.SetSystem(bookssplit[x-1]);
-                vg.SetQuantity(bookssplit[x+1]);
+                vg.SetQuantity(int.Parse(bookssplit[x+1]));
                 books.Add(vg);
             }
         }
@@ -203,52 +202,9 @@ class Menu
             testchoice = int.TryParse(Console.ReadLine(), out bookchoice);
         }
 
-        bool book = false;
-        bool magazine = false;
-        bool comicbook = false;
-        bool movie = false;
-        bool videogame = false;
-        try
-        {
-            books[bookchoice-1].GetGenre();
-            book = true;
-        }catch (Exception){
-            book = false;
-        }
+        string typeofitem = books[bookchoice-1].Check();
 
-        try
-        {
-            books[bookchoice-1].GetPublishDate();
-            magazine = true;
-        }catch (Exception){
-            magazine = false;
-        }
-
-        try
-        {
-            books[bookchoice-1].GetVolume();
-            comicbook = true;
-        }catch (Exception){
-            comicbook = false;
-        }
-
-        try
-        {
-            books[bookchoice-1].GetRating();
-            movie = true;
-        }catch (Exception){
-            movie = false;
-        }
-
-        try
-        {
-            books[bookchoice-1].GetSystem();
-            videogame = true;
-        }catch (Exception){
-            videogame = false;
-        }
-
-        if (book == true){
+        if (typeofitem == "Book"){
             filepath = $"{u.GetUserName()}books.txt";
             string name = books[bookchoice-1].GetName();
             string author = books[bookchoice-1].GetAuthor();
@@ -270,11 +226,14 @@ class Menu
                 texttoremove = $"{name},{author},{genre},{type},{num}";
                 num++;
             }
+            if (num == 0){
+                num = 2;
+            }
             string texttoreplace = $"{name},{author},{genre},{type},{num}";
             fileContents = File.ReadAllText("Books.txt");
             fileContents = fileContents.Replace(texttoremove, texttoreplace);
             File.WriteAllText("Books.txt", fileContents);
-        }else if (magazine == true){
+        }else if (typeofitem == "Magazine"){
             filepath = $"{u.GetUserName()}books.txt";
             string name = books[bookchoice-1].GetName();
             string author = books[bookchoice-1].GetAuthor();
@@ -296,11 +255,14 @@ class Menu
                 texttoremove = $"{name},{author},{publishdate},{type},{num}";
                 num++;
             }
+            if (num == 0){
+                num = 2;
+            }
             string texttoreplace = $"{name},{author},{publishdate},{type},{num}";
             fileContents = File.ReadAllText("Books.txt");
             fileContents = fileContents.Replace(texttoremove, texttoreplace);
             File.WriteAllText("Books.txt", fileContents);
-        }else if (comicbook == true){
+        }else if (typeofitem == "ComicBook"){
             filepath = $"{u.GetUserName()}books.txt";
             string name = books[bookchoice-1].GetName();
             string author = books[bookchoice-1].GetAuthor();
@@ -323,11 +285,15 @@ class Menu
                 texttoremove = $"{name},{author},{volume},{booknumber},{type},{num}";
                 num++;
             }
+            if (num == 0){
+                num = 2;
+            }
             string texttoreplace = $"{name},{author},{volume},{booknumber},{type},{num}";
             fileContents = File.ReadAllText("Books.txt");
             fileContents = fileContents.Replace(texttoremove, texttoreplace);
             File.WriteAllText("Books.txt", fileContents);
-        }else if (movie == true){
+        }else if (typeofitem == "Movie"){
+            Console.WriteLine(books[bookchoice-1].GetRating());
             filepath = $"{u.GetUserName()}books.txt";
             string name = books[bookchoice-1].GetName();
             string author = books[bookchoice-1].GetAuthor();
@@ -350,11 +316,14 @@ class Menu
                 texttoremove = $"{name},{author},{genre},{rating},{type},{num}";
                 num++;
             }
+            if (num == 0){
+                num = 2;
+            }
             string texttoreplace = $"{name},{author},{genre},{rating},{type},{num}";
             fileContents = File.ReadAllText("Books.txt");
             fileContents = fileContents.Replace(texttoremove, texttoreplace);
             File.WriteAllText("Books.txt", fileContents);
-        }else if (videogame == true){
+        }else if (typeofitem == "VideoGame"){
             filepath = $"{u.GetUserName()}books.txt";
             string name = books[bookchoice-1].GetName();
             string author = books[bookchoice-1].GetAuthor();
@@ -375,6 +344,9 @@ class Menu
             {
                 texttoremove = $"{name},{author},{system},{type},{num}";
                 num++;
+            }
+            if (num == 0){
+                num = 2;
             }
             string texttoreplace = $"{name},{author},{system},{type},{num}";
             fileContents = File.ReadAllText("Books.txt");
@@ -488,51 +460,6 @@ class Menu
                 Console.WriteLine("Please use the Corresponding Numbers to select a Book to Borrow");
                 testchoice = int.TryParse(Console.ReadLine(), out bookchoice);
             }
-            /*bool book = false;
-            bool magazine = false;
-            bool comicbook = false;
-            bool movie = false;
-            bool videogame = false;
-            try
-            {
-                books[bookchoice-1].GetGenre();
-                book = true;
-            }catch (Exception){
-                book = false;
-            }
-
-            try
-            {
-                books[bookchoice-1].GetPublishDate();
-                magazine = true;
-            }catch (Exception){
-                magazine = false;
-            }
-
-            try
-            {
-                books[bookchoice-1].GetVolume();
-                comicbook = true;
-            }catch (Exception){
-                comicbook = false;
-            }
-
-            try
-            {
-                string rating = books[bookchoice-1].GetRating();
-                Console.WriteLine(rating);
-                movie = true;
-            }catch (Exception){
-                movie = false;
-            }
-
-            try
-            {
-                books[bookchoice-1].GetSystem();
-                videogame = true;
-            }catch (Exception){
-                videogame = false;
-            }*/
 
             string typeofitem = books[bookchoice-1].Check();
             
@@ -611,7 +538,6 @@ class Menu
                 fileContents = fileContents.Replace(ogtext, texttoreplace);
                 File.WriteAllText("Books.txt", fileContents);
             }else if (typeofitem == "Movie"){
-                Console.WriteLine(books[bookchoice-1].GetRating());
                 filepath = $"{u.GetUserName()}books.txt";
                 string name = books[bookchoice-1].GetName();
                 string author = books[bookchoice-1].GetAuthor();
@@ -897,14 +823,26 @@ class Menu
                 Book b = new Book();
                 Console.Write("What is the title of the Book: ");
                 string title = Console.ReadLine();
+                while (title == "Book" || title.Contains(',') || title == "ComicBook" || title == "Magazine" || title == "Movie" || title == "VideoGame"){
+                    Console.Write("What is the title of the Book: ");
+                    title = Console.ReadLine();
+                }
                 b.SetName(title);
 
                 Console.Write("Who is the author of the Book: ");
                 string author = Console.ReadLine();
+                while (author == "Book" || author.Contains(',') || author == "ComicBook" || author == "Magazine" || author == "Movie" || author == "VideoGame"){
+                    Console.Write("Who is the author of the Book: ");
+                    author = Console.ReadLine();
+                }
                 b.SetAuthor(author);
 
                 Console.Write("What is the genre of the Book: ");
                 string genre = Console.ReadLine();
+                while (genre == "Book" || genre.Contains(',') || genre == "ComicBook" || genre == "Magazine" || genre == "Movie" || genre == "VideoGame"){
+                    Console.Write("What is the genre of the Book: ");
+                    genre = Console.ReadLine();
+                }
                 b.SetGenre(genre);
 
                 Console.Write("How many Books are you Donating: ");
@@ -925,10 +863,18 @@ class Menu
                 Magazine m = new Magazine();
                 Console.Write("What is the title of the Magazine: ");
                 string title = Console.ReadLine();
+                while (title == "Book" || title.Contains(',') || title == "ComicBook" || title == "Magazine" || title == "Movie" || title == "VideoGame"){
+                    Console.Write("What is the title of the Magazine: ");
+                    title = Console.ReadLine();
+                }
                 m.SetName(title);
 
                 Console.Write("Who is the author of the Magazine: ");
                 string author = Console.ReadLine();
+                while (author == "Book" || author.Contains(',') || author == "ComicBook" || author == "Magazine" || author == "Movie" || author == "VideoGame"){
+                    Console.Write("Who is the author of the Magazine: ");
+                    author = Console.ReadLine();
+                }
                 m.SetAuthor(author);
 
                 Console.Write("What Year was the Magazine made: ");
@@ -961,12 +907,12 @@ class Menu
                 string date = $"{day}/{month}/{year}";
                 m.SetPublishDate(date);
 
-                Console.Write("How many Books are you Donating: ");
+                Console.Write("How many Magazines are you Donating: ");
                 int quantity;
                 bool testquant = int.TryParse(Console.ReadLine(), out quantity);
                 while (testquant == false)
                 {
-                    Console.Write("How many Books are you Donating: ");
+                    Console.Write("How many Magazines are you Donating: ");
                     testquant = int.TryParse(Console.ReadLine(), out quantity);
                 }
                 m.SetQuantity(quantity);
@@ -979,10 +925,18 @@ class Menu
                 ComicBook cb = new ComicBook();
                 Console.Write("What is the title of the Book: ");
                 string title = Console.ReadLine();
+                while (title == "Book" || title.Contains(',') || title == "ComicBook" || title == "Magazine" || title == "Movie" || title == "VideoGame"){
+                    Console.Write("What is the title of the Book: ");
+                    title = Console.ReadLine();
+                }
                 cb.SetName(title);
 
                 Console.Write("Who is the author of the Book: ");
                 string author = Console.ReadLine();
+                while (author == "Book" || author.Contains(',') || author == "ComicBook" || author == "Magazine" || author == "Movie" || author == "VideoGame"){
+                    Console.Write("Who is the author of the Book: ");
+                    author = Console.ReadLine();
+                }
                 cb.SetAuthor(author);
 
                 Console.Write("What is the volume number: ");
@@ -1023,14 +977,26 @@ class Menu
                 Movie m = new Movie();
                 Console.Write("What is the title of the Movie: ");
                 string title = Console.ReadLine();
+                while (title == "Book" || title.Contains(',') || title == "ComicBook" || title == "Magazine" || title == "Movie" || title == "VideoGame"){
+                    Console.Write("What is the title of the Movie: ");
+                    title = Console.ReadLine();
+                }
                 m.SetName(title);
 
                 Console.Write("Who is the Director of the Movie: ");
                 string author = Console.ReadLine();
+                while (author == "Book" || author.Contains(',') || author == "ComicBook" || author == "Magazine" || author == "Movie" || author == "VideoGame"){
+                    Console.Write("Who is the Director of the Movie: ");
+                    author = Console.ReadLine();
+                }
                 m.SetAuthor(author);
 
-                Console.Write("What is the genre of the Book: ");
+                Console.Write("What is the genre of the Movie: ");
                 string genre = Console.ReadLine();
+                while (genre == "Book" || genre.Contains(',') || genre == "ComicBook" || genre == "Magazine" || genre == "Movie" || genre == "VideoGame"){
+                    Console.Write("What is the genre of the Movie: ");
+                    genre = Console.ReadLine();
+                }
                 m.SetGenre(genre);
 
                 Console.Write("Out of 10, rate this movie: ");
@@ -1057,20 +1023,32 @@ class Menu
                 m.Display();
                 m.AddToFile();
 
-                Console.WriteLine("This is the end of Movie Creation");
+                
             }else if (booktype == 5)
             {
                 VideoGame vg = new VideoGame();
                 Console.Write("What is the title of the Video Game: ");
                 string title = Console.ReadLine();
+                while (title == "Book" || title.Contains(',') || title == "ComicBook" || title == "Magazine" || title == "Movie" || title == "VideoGame"){
+                    Console.Write("What is the title of the Video Game: ");
+                    title = Console.ReadLine();
+                }
                 vg.SetName(title);
 
                 Console.Write("Who is the publisher of the Video Game: ");
                 string author = Console.ReadLine();
+                while (author == "Book" || author.Contains(',') || author == "ComicBook" || author == "Magazine" || author == "Movie" || author == "VideoGame"){
+                    Console.Write("Who is the publisher of the Video Game: ");
+                    author = Console.ReadLine();
+                }
                 vg.SetAuthor(author);
 
                 Console.Write("What system is the Video Game for: ");
                 string system = Console.ReadLine();
+                while (system == "Book" || system.Contains(',') || system == "ComicBook" || system == "Magazine" || system == "Movie" || system == "VideoGame"){
+                    Console.Write("What system is the Video Game for: ");
+                    system = Console.ReadLine();
+                }
                 vg.SetSystem(system);
 
                 Console.Write("How many copies are you Donating: ");

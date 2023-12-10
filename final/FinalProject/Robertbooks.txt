@@ -1,2 +1,3 @@
+Robinhood,peter,fiction,Book,1
+MAgazime,MAgazime,3/4/2000,Magazine,1
 Pepe the Frog,Pepa Pig,Fiction,2,Movie,1
-Opps,The gang,Documentary,5,Movie,1
