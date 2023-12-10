@@ -16,9 +16,10 @@ class Book : Item
         File.AppendAllText(filePath, line + Environment.NewLine);
     }
 
-    public override void Check()
+    public override string Check()
     {
-        throw new NotImplementedException();
+        string type = "Book";
+        return type;
     }
 
     public override void Remove()

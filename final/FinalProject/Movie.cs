@@ -29,14 +29,15 @@ class Movie : Item
         File.AppendAllText(filePath, line + Environment.NewLine);
     }
 
-    public override void Check()
+    public override string Check()
     {
-        throw new NotImplementedException();
+        string type = "Movie";
+        return type;
     }
 
     public override void Display()
     {
-        Console.WriteLine($"Title: {GetName()}\nDirector: {GetAuthor()}\nGenre: {GetGenre()}\nRating: {GetRating()}\nType: {GetType()}\nQuantity: {GetQuantity()}\n");
+        Console.WriteLine($"Title: {GetName()}\nDirector: {GetAuthor()}\nGenre: {GetGenre()}\nRating: {GetRating()}/10\nType: {GetType()}\nQuantity: {GetQuantity()}\n");
     }
 
     public override void Remove()

@@ -20,9 +20,10 @@ class Magazine : Item
         File.AppendAllText(filePath, line + Environment.NewLine);
     }
 
-    public override void Check()
+    public override string Check()
     {
-        throw new NotImplementedException();
+        string type = "Magazine";
+        return type;
     }
 
     public override void Remove()

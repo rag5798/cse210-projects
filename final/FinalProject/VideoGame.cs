@@ -16,9 +16,10 @@ class VideoGame : Item
         File.AppendAllText(filePath, line + Environment.NewLine);
     }
 
-    public override void Check()
+    public override string Check()
     {
-        throw new NotImplementedException();
+        string type = "VideoGame";
+        return type;
     }
 
     public override void Display()

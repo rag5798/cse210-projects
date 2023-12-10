@@ -395,17 +395,19 @@ class Menu
         {
             using (FileStream fs = new FileStream(userfile, FileMode.Create))
             {
-                
+                fs.Close();
             }
         }
 
         string filepath = "Books.txt";
+        FileInfo info = new FileInfo("Books.txt");
         bool fileexists = File.Exists(filepath);
-        if (fileexists == false)
+        if (fileexists == false || info.Length == 0)
         {
             Console.WriteLine("No Books Are Avalible. Please Consider Donating to Start Our Public Collection");
             BookMenu(u);
         }
+
         string[] fields;
         List<dynamic> bookssplit = new List<dynamic>();
         using (StreamReader reader = new StreamReader(filepath))
@@ -466,8 +468,6 @@ class Menu
             }
         }
 
-        
-
         if (books.Count() < 10)
         {
             foreach (Item i in books)
@@ -486,10 +486,9 @@ class Menu
                     i.Display();
                 }
                 Console.WriteLine("Please use the Corresponding Numbers to select a Book to Borrow");
-                bookchoice = 0;
                 testchoice = int.TryParse(Console.ReadLine(), out bookchoice);
             }
-            bool book = false;
+            /*bool book = false;
             bool magazine = false;
             bool comicbook = false;
             bool movie = false;
@@ -520,7 +519,8 @@ class Menu
 
             try
             {
-                books[bookchoice-1].GetRating();
+                string rating = books[bookchoice-1].GetRating();
+                Console.WriteLine(rating);
                 movie = true;
             }catch (Exception){
                 movie = false;
@@ -532,9 +532,11 @@ class Menu
                 videogame = true;
             }catch (Exception){
                 videogame = false;
-            }
+            }*/
+
+            string typeofitem = books[bookchoice-1].Check();
             
-            if (book == true)
+            if (typeofitem == "Book")
             {
                 filepath = $"{u.GetUserName()}books.txt";
                 string name = books[bookchoice-1].GetName();
@@ -559,7 +561,7 @@ class Menu
                 string fileContents = File.ReadAllText("Books.txt");
                 fileContents = fileContents.Replace(ogtext, texttoreplace);
                 File.WriteAllText("Books.txt", fileContents);
-            }else if (magazine == true){
+            }else if (typeofitem == "Magazine"){
                 filepath = $"{u.GetUserName()}books.txt";
                 string name = books[bookchoice-1].GetName();
                 string author = books[bookchoice-1].GetAuthor();
@@ -583,7 +585,7 @@ class Menu
                 string fileContents = File.ReadAllText("Books.txt");
                 fileContents = fileContents.Replace(ogtext, texttoreplace);
                 File.WriteAllText("Books.txt", fileContents);
-            }else if (comicbook == true){
+            }else if (typeofitem == "ComicBook"){
                 filepath = $"{u.GetUserName()}books.txt";
                 string name = books[bookchoice-1].GetName();
                 string author = books[bookchoice-1].GetAuthor();
@@ -608,7 +610,7 @@ class Menu
                 string fileContents = File.ReadAllText("Books.txt");
                 fileContents = fileContents.Replace(ogtext, texttoreplace);
                 File.WriteAllText("Books.txt", fileContents);
-            }else if (movie == true){
+            }else if (typeofitem == "Movie"){
                 Console.WriteLine(books[bookchoice-1].GetRating());
                 filepath = $"{u.GetUserName()}books.txt";
                 string name = books[bookchoice-1].GetName();
@@ -635,7 +637,7 @@ class Menu
                 string fileContents = File.ReadAllText("Books.txt");
                 fileContents = fileContents.Replace(ogtext, texttoreplace);
                 File.WriteAllText("Books.txt", fileContents);
-            }else if (videogame == true){
+            }else if (typeofitem == "VideoGame"){
                 filepath = $"{u.GetUserName()}books.txt";
                 string name = books[bookchoice-1].GetName();
                 string author = books[bookchoice-1].GetAuthor();
@@ -873,88 +875,6 @@ class Menu
         if (choice == 1)
         {
             BorrowBook(u);
-            /*string filepath = "Books.txt";
-            bool fileexists = File.Exists(filepath);
-            if (fileexists == false)
-            {
-                BookMenu();
-            }
-            
-            string[] fields;
-            List<dynamic> bookssplit = new List<dynamic>();
-            using (StreamReader reader = new StreamReader(filepath))
-            {
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    fields = line.Split(',');
-                    // Do something with the fields
-                    foreach (string x in fields){
-                        bookssplit.Add(x);
-                    }
-                }
-
-            }
-            List<dynamic> books = new List<dynamic>(){};
-            foreach (string x in bookssplit)
-            {
-                if (x == "Book")
-                {
-                    Book b = new Book();
-                    b.SetName(bookssplit[bookssplit.IndexOf(x)-3]);
-                    b.SetAuthor(bookssplit[bookssplit.IndexOf(x)-2]);
-                    b.SetGenre(bookssplit[bookssplit.IndexOf(x)-1]);
-                    b.SetQuantity(int.Parse(bookssplit[bookssplit.IndexOf(x)+1]));
-                    books.Add(b);
-                }else if (x == "Magazine")
-                {
-                    Magazine m = new Magazine();
-                    m.SetName(bookssplit[bookssplit.IndexOf(x)-3]);
-                    m.SetAuthor(bookssplit[bookssplit.IndexOf(x)-2]);
-                    m.SetPublishDate(bookssplit[bookssplit.IndexOf(x)-1]);
-                    m.SetQuantity(int.Parse(bookssplit[bookssplit.IndexOf(x)+1]));
-                    books.Add(m);
-                }else if (x == "ComicBook")
-                {
-                    ComicBook cb = new ComicBook();
-                    cb.SetName(bookssplit[bookssplit.IndexOf(x)-4]);
-                    cb.SetAuthor(bookssplit[bookssplit.IndexOf(x)-3]);
-                    cb.SetVolume(bookssplit[bookssplit.IndexOf(x)-2]);
-                    cb.SetBookNumber(int.Parse(bookssplit[bookssplit.IndexOf(x)-1]));
-                    cb.SetQuantity(int.Parse(bookssplit[bookssplit.IndexOf(x)+1]));
-                    books.Add(cb);
-                }
-            }
-
-
-
-            if (books.Count() < 10)
-            {
-                foreach (Item i in books)
-                {
-                    Console.Write($"{books.IndexOf(i)+1}.) ");
-                    i.Display();
-                }
-                Console.WriteLine("Please use the Corresponding Numbers to select a Book to Borrow");
-                int bookchoice;
-                bool testchoice = int.TryParse(Console.ReadLine(), out bookchoice);
-                while (testchoice == false || bookchoice < 1 || bookchoice > books.Count())
-                {
-                    foreach (Item i in books)
-                    {
-                        Console.Write($"{books.IndexOf(i)+1}.) ");
-                        i.Display();
-                    }
-                    Console.WriteLine("Please use the Corresponding Numbers to select a Book to Borrow");
-                    testchoice = int.TryParse(Console.ReadLine(), out bookchoice);
-                }
-
-
-                
-            }else{
-
-            }*/
-
 
         }else if (choice == 2)
         {
@@ -1113,16 +1033,15 @@ class Menu
                 string genre = Console.ReadLine();
                 m.SetGenre(genre);
 
-                Console.Write("Out of 10, how would you rate the movie: ");
-                int top;
-                bool testtop = int.TryParse(Console.ReadLine(), out top);
-                while (testtop == false || top < 1 || top > 9)
-                {
-                    Console.Write("Out of 10, how would you rate the movie: ");
-                    testtop = int.TryParse(Console.ReadLine(), out top);
+                Console.Write("Out of 10, rate this movie: ");
+                int num;
+                bool testnum = int.TryParse(Console.ReadLine(), out num);
+                while (testnum == false || num < 1 || num > 10){
+                    Console.Write("Out of 10, rate this movie: ");
+                    testnum = int.TryParse(Console.ReadLine(), out num);
                 }
-                string fraction = $"{top} of 10";
-                m.SetRating(fraction);
+                m.SetRating(num.ToString());
+
 
                 Console.Write("How many copies are you Donating: ");
                 int quantity;
@@ -1137,6 +1056,8 @@ class Menu
                 Console.WriteLine("You Donated the Movie:");
                 m.Display();
                 m.AddToFile();
+
+                Console.WriteLine("This is the end of Movie Creation");
             }else if (booktype == 5)
             {
                 VideoGame vg = new VideoGame();
